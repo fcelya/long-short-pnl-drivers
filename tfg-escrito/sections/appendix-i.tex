@@ -1,0 +1,44 @@
+\section{Performance metrics explained}
+When studying a given asset or strategy as an investment opportunity, there are many things to consider. The investor is interested about returns, but also about risk. And risk can be measured as return volatility as in the classical portfolio optimization paper \cite{markowitz_1952}, but also in many other ways. 
+
+In order to compare the performance of the strategy with the different benchmarks in the most complete way, several different metrics have been calculated and selected. Here, these different metrics will be explained in more depth to understand how they are calculated, what they represent and how they can be useful. 
+
+\begin{itemize}
+    \item \textbf{Sharpe ratio}: This ratio introduced by \cite{sharpe_1966} and revised in \cite{sharpe_1994} is a risk adjusted return metric that incorporates both the mean returns and the volatility of those returns. It is calculated as 
+    \begin{equation}
+        SR=\frac{r_a-r_f}{\sigma_{r_a-r_f}}
+    \end{equation}
+    where $r_a$ is the annualized mean asset returns, $r_f$ is the risk free returns and $\sigma_{r_a-r_f}$ is the volatility of the asset's excess returns. 
+    It measures how much excess returns are generated per unit of risk taken.
+    \item \textbf{Sortino ratio}: One of the main drawbacks of the Sharpe ratio is that for some investors the volatility of the returns may not be an accurate measure of risk. The investor tries to avoid downwards movements of the returns, but upwards movements are more than welcome. In order to solve that misrepresentation of risk by the Sharpe ratio, the Sortino ratio was developed in \cite{sortino_1994}. This ratio is also a measure of risk adjusted returns, but the risk is measured as the volatility only of the negative returns. It is calculated like
+    \begin{equation}
+        Sortino=\frac{r_a-r_f}{\sigma^-_a}
+    \end{equation}
+    where $\sigma_a^-$ is the volatility exclusively of the negative returns. 
+    It measures the excess returns generated per unit of risk measured as downside volatility. 
+    \item \textbf{Drawdown}: The drawdown is a measure of risk which accounts for the total loss that can be expected for the given investment. For a series of returns $r_t$ for $t=0,1,2,...T$, the drawdown at $T$ is calculated as 
+    \begin{equation}
+        DD_t=\frac{\text{max}\left[W_t\right]-W_t}{\text{max}\left[W_t\right]}
+    \end{equation}
+    where $W_t$ is the compounded wealth at time $t$ accumulated due to all previous returns. The maximum drawdown is $\text{max}\left[DD_t\right]$ across the whole investment period. It is a measure of the maximum loss the investor could have expected to have.
+    \item \textbf{Calmar ratio}: This ratio was created in order to combine the risk as measured by the maximum drawdown with return information to create a risk adjusted return measure. It is calculated as 
+    \begin{equation}
+        Calmar=\frac{r_a}{\text{max}\left[DD_t\right]}
+    \end{equation}
+    This measure gives the investor a sense of how much extra returns can be expected per percentage point of maximum drawdown. 
+    \item \textbf{Beta}: This measure introduced in the $CAPM$ model in \cite{sharpe_1964} is the same coefficient which accompanies the market excess returns factor. It is also a measure of risk and independently it is calculated as 
+    \begin{equation}
+        \beta=\frac{Cov\left(r_a,r_b\right)}{\sigma^2_b}
+    \end{equation}
+    where $Cov\left(r_a,r_b\right)$ is the covariance of the asset's returns and the benchmark's returns and $\sigma^2_b$ is the benchmark returns' variance. This $\beta$ measures the sensitivity of the asset's returns to the benchmark's returns, with a $\beta=1$ indicating that the asset moves in line with the market, $\beta=0$ indicating returns completely uncorrelated with the market and $\beta \in \left(-\inf,\inf\right)$. This is thus a measure of sistematic risk when taking the market as the benchmark.
+    \item \textbf{Alpha}: While $\beta$ was a measure of risk related to the $CAPM$ model, $\alpha$ is the corresponding measure of risk adjusted returns. It is calculated as
+    \begin{equation}
+        \alpha=r_a-\beta r_b
+    \end{equation}
+    Note how this $\alpha$ is different from that of the $CAPM$ model -- although it is inspired by it -- which would be calculated as $\alpha=r_a-\left[r_f+\beta\left(r_b-r_f\right)\right]$. The difference lies in that this one is calculated with respect to a generic model benchmark. The $\alpha$ then represents the excess returns of the asset with respect to the returns excpected according to the benchmark model, given its risk as measured by $\beta$. It indicates whether the asset has outperformed the benchmark after adjusting for risk.
+    \item \textbf{Treynor ratio}: This ratio introduced by Jack L. Treynor is again a metric for risk adjusted returns similar to the Sharpe ratio but using the already explained $\beta$ as a measure of risk. It is thus calculated as 
+    \begin{equation}
+        Treynor=\frac{r_a-r_f}{\beta}
+    \end{equation}
+    It shows how much additional excess returns can be expected per unit of additional systematic risk.  
+\end{itemize}

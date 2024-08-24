@@ -1,0 +1,14 @@
+\section{Data Description}
+Throughout the analysis conducted in this work, several different data sources have been used
+\begin{itemize}
+    \item Asset prices: In order to retrieve the daily asset prices for the components of the S\&P500, the FactSet API was used. The closing price of the session was taken as the daily price. Time period for the data encompassed from the ending of 2005 to the ending of 2023, and all companies that formed part of the S\&P500 for the whole period were considered. 
+    \item Implied volatilities: Another key component of the strategy's trigger and sizing are the volatilities implied by the 1 month options. These volatilities were also obtained from the FactSet API. 
+    \item Risk free rate: The Risk free rate, another key component for several of the calculations used in the strategy, was taken as the 6 month US Treasury Bill rate. These rates were obtained directly from the US Federal Reserve System.
+    \item Factors: The different factors were obtained from different sources
+    \begin{itemize}
+        \item $r_M-r_f$: The market excess returns were constructed from the returns of the S\&P500 obtained from the aforementioned dataset, subtracting the already obtained risk free rate.
+        \item Macroeconomic factors: The daily $SMB$, $HML$ and $MOM$ factors were obtained from the Kenneth R. French online Data Library, hosted by Dartmouth College.
+        \item $IVS$: The Idiosyncratic Volatility Spread was calculated taking the rolling historical 1 month volatility of the stocks, calculated from the already obtained daily price data, and subtracting the 1 month historical volatility of the S\&P daily price. This measure is then turned into daily volatility values for each stock. 
+        \item Other Fundamental Factors: The rest of the fundamental factors, pertaining mainly to disclosed financial data from the companies, are obtained from the FactSet API. 
+    \end{itemize}
+\end{itemize}

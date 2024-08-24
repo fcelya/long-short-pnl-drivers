@@ -1,0 +1,146 @@
+\documentclass[12pt,a4paper,twoside]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[
+backend=biber,
+style=apa
+]{biblatex}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[toc,page]{appendix}
+
+%%%%%%%%%%%%%% Third level subsection %%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+%\def\toclevel@paragraph{6}
+\def\toclevel@subparagraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keywords command
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Keywords---}} #1
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Add abstract environment to book style
+% \newenvironment{abstract}%
+% {\cleardoublepage \null \vfill \begin{center}%
+% 		\bfseries \abstractname \end{center}}%
+% {\vfill\null}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set font to Times New Roman
+%\usepackage{mathptmx}
+
+% Set double spacing
+\doublespacing
+
+
+\addbibresource{bibliography.bib}
+
+\title{The PnL Drivers of Long-Short Trading Strategies}
+% \author{Ioannis Paraskevopoulos, Fernando Celaya}
+\date{\today}
+
+\begin{document}
+\pagestyle{empty}
+\begin{titlepage}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{assets/logo-comillas.png}
+  \end{figure}
+  \centering
+  \Large 
+  Degree in Business Administration \\ Bachelor's Final Thesis\\[36px]
+  \Huge 
+  The PnL Drivers of Long-Short Trading Strategies\\
+  \Large
+  \raggedright
+  \vspace*{\fill}
+  Author: Fernando Celaya\\
+  Supervisor: Ioannis Paraskevopoulos\\
+  \today
+
+\end{titlepage}
+\newpage
+
+\begin{abstract}
+  This study improves the application and performance of a cointegration-based pairs trading strategy by refining its implementation and expanding its asset universe. Through detailed backtesting, the strategy's overall performance and long and short legs are analyzed separately and compared to the market and a Johansen cointegration-based benchmark. The strategy demonstrates strong risk-adjusted performance, with low negative beta to the market. Its performance drivers are analyzed through a five factor model and it is found to be driven primarily by the size factor and the Idiosyncratic Volatility Spread. A secondary regression identifies high market capitalization, high profitability as per the $ROC$ , and high valuation as per the $BTM$ and $EVEBITDA$ of its traded assets as other key performance drivers. 
+\end{abstract}
+\keywords{Pairs-trading, Cointegration, Performance analysis, Profit drivers, Factor model, Idiosyncratic Volatility Spread}
+\newpage
+
+\section*{Acknowledgements}
+I would like to express my deepest gratitude to my supervisor, Ioannis Paraskevopoulos, not only for his invaluable guidance and support throughout this project but also for sharing with me his passion for quantitative finance and illuminating my way in this incredibly interesting field. I would also like to thank Alvaro Guerrero for his generosity lending an impeccable starting point for this thesis and his deep support whenever it was needed. 
+\newpage
+
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+
+\thispagestyle{empty}
+\listoffigures
+\listoftables
+\newpage
+
+
+\pagestyle{plain}
+\clearpage
+\pagenumbering{arabic} 
+\input{sections/introduction}
+\newpage
+\input{sections/methodology}
+\newpage
+\input{sections/data-description}
+\newpage
+\input{sections/technical-description}
+\newpage
+\input{sections/results}
+\newpage
+% \input{sections/discussion}
+% \newpage
+\input{sections/conclusion}
+\newpage
+\begin{appendices}
+\input{sections/appendix-i}
+\end{appendices}
+\newpage
+
+\printbibliography[heading=bibintoc]
+\end{document}
