@@ -4,9 +4,9 @@ When someone has a positive expectation for the performance of an asset in the m
 
 But what if one expects a negative performance for some asset? It is also possible to profit from these views by doing the opposite. The share can be borrowed and sold in the market, to be later bought at a lower price and keeping the difference as profit. This is generally called "going short" on an asset.
 
-There are a few reasons why going short on an asset is however not as straightforward as going long. For one, even though the borrowing of shares is a very streamlined process nowadays it is still more cumbersome than simply buying the asset. Furthermore, it entails borrowing costs for the time while the position is open and it is also riskier. In addition to that, while long positions have a maximum loss of 100\% -- when the price of the asset goes to 0 -- short positions can lose more than 100\%. If the price triples for example and one is to close the position, one must buy the asset spending three times the amount of money originally received when selling the borrowed shares, leading to a loss of 200\%. In order to prevent this situation and to make sure that the shares are always given back, short positions -- like leveraged positions --  can also lead to margin calls, materializing our losses when there are sudden price movements in the market.
+There are a few reasons why going short on an asset is however not as straightforward as going long. For one, even though the borrowing of shares is a very streamlined process nowadays it is still more cumbersome than simply buying the asset. Furthermore, it entails borrowing costs for the time while the position is open and it is also riskier. While long positions have a maximum loss of 100\% -- when the price of the asset goes to 0 -- short positions can lose more than 100\%. If the price triples for example and one is to close the position, one must buy the asset spending three times the amount of money originally received when selling the borrowed shares, leading to a loss of 200\%. In order to prevent this situation and to make sure that the shares are always given back to the lender, short positions -- like leveraged positions --  can also lead to margin calls, materializing our losses when there are sudden price movements in the market.
 
-Allowing for short positions however also has some benefits. It allows asset managers or traders to profit also from negative views on some assets, not only from positive ones. In more technical terms, by removing the constraint stating that all positions must be positive, the new universe of possible positions is much greater with better options. This can be seen very clearly in the asset allocation problem, where by removing the short selling constraint the efficient frontier is expanded and better portfolios can be formed. 
+Allowing for short positions however also has some benefits. It allows asset managers or traders to profit also from negative views on some assets, not only from positive ones. Taking a portfolio view, by removing the constraint stating that all positions must be positive, the new universe of possible portfolios is much wider. This can be seen very clearly in the asset allocation problem, where by removing the short selling constraint the efficient frontier is expanded and better portfolios can be formed. 
 
 One of the possible formulations for the optimal portfolio allocation problem is the following:
 
@@ -23,7 +23,7 @@ $$
 Where $\sigma_p^2$ is the portfolio variance, $w$ is the vector of portfolio weights, $\Sigma$ is the matrix of asset covariances, $r$ is the vector of asset returns and $\mu$ is the target portfolio return. 
 
 The second constraint is the no-leverage constraint, assuming that the portfolio is self-financed, while the third constraint is the no-short-selling constraint, where all portfolio weights are forced to be positive. 
-The difference between including and not including the last constraint can be observed in the following figure, where the portfolio problem has been solved for different target returns for each of the two portfolios. 
+The difference between including and not including the last constraint can be observed in \autoref{fig:efficient-frontier-comparison}, where the portfolio problem has been solved for different target returns for each of the two discussed formulations. 
 
 \begin{figure}[h]
     \includegraphics[width=\linewidth]{assets/efficient-frontier-comparison.png}
@@ -31,52 +31,66 @@ The difference between including and not including the last constraint can be ob
     \label{fig:efficient-frontier-comparison}
 \end{figure}
 
-As it can be clearly seen in \autoref{fig:efficient-frontier-comparison}, for a given risk level, the optimal portfolio without the short selling constraint has expected returns equal or greater than the optimal portfolio with the constraint. 
+As it can be clearly seen, for a given risk level the optimal portfolio without the short selling constraint has expected returns equal or greater than the optimal portfolio with the constraint. 
 
-Any strategy that allows for both the buying and selling of assets is thus called a long-short trading strategy, and there are many such strategies with different purposes and characteristics. The strategy that will be studied here is a pairs-trading strategy.
+Any strategy that allows for both the buying and selling of assets is called a long-short trading strategy, and there are many such strategies with different purposes and characteristics. The strategy that will be studied in this work is of a type of long-short strategies called pairs-trading strategies.
+
 \subsubsection{Pairs-trading strategies}
-These strategies were first developed by a group of traders at Morgan Stanley in 1985 under the leadership of Nunzio Tartaglia and they follow a very simple principle. If two assets move very similarly, but onw thinks for some reason that one of them is going to outperform the other, then a long position is entered in that one and a short position is entered in the other one. That way, the general movement of the market can be takan out of the position, and the profit of the trade will only depend on the difference in movement between the two assets, and not on the market movements affecting both assets. 
-This can be seen more clearly with a samll extension to the $CAPM$ model, where asset specific component for the return are included.
+These strategies were first developed by a group of traders at Morgan Stanley in 1985 under the leadership of Nunzio Tartaglia (\cite{pole_2011}) and they follow a very simple principle. There are sometimes pairs of assets that move very similarly, like the case of Aveco Biotechnology and Dover Corporation, whose prices are shown in \autoref{fig:cointegrated-assets}.
+
+\begin{figure}[h]
+    \captionsetup{justification=centering}
+    \includegraphics[width=\linewidth]{assets/cointegrated-assets.png}
+    \caption{Stock prices of two cointegrated assets. Source: \href{https://hudsonthames.org/definitive-guide-to-pairs-trading/}{Hudson and Thames: The comprehensive introduction to pairs trading}}
+    \label{fig:cointegrated-assets}
+\end{figure}
+
+If one thinks for some reason that one of the two assets is going to outperform the other, then a long position is entered in that one and a short position is entered in the other one. That way, the general movement of the market can be takan out of the position, and the profit of the trade will only depend on the difference in movement between the two assets, and not on the market movements affecting both assets. 
+This can be seen more clearly with a samll extension to the $CAPM$ model, where asset specific component for the returns are included.
 \begin{equation}
-    r_A=r_f+\beta_A(r_M-r_f)+ r_S^A+ \epsilon_A
+    r_a=r_f+\beta_a(r_M-r_f)+ r_a^s+ \epsilon_a
 \end{equation}
 \begin{equation}
-    r_B=r_f+\beta_B(r_M-r_f)+ r_S^B+ \epsilon_B
+    r_b=r_f+\beta_b(r_M-r_f)+ r_b^s+ \epsilon_b
 \end{equation}
 
-
-A position can be chosen for both assets with position sizes $\Delta_A$ and $-\Delta_B$ and $\Delta_A\beta_A=\Delta_B\beta_B$ so that
+A position can be chosen for both assets with position sizes $\Delta_a$ and $-\Delta_b$ and $\Delta_a\beta_a=\Delta_b\beta_b$ so that
 \begin{equation}
-    r_P=\Delta_Ar_A-\Delta_Br_B=(\Delta_A-\Delta_B)r_f + \Delta_A r_S^A - \Delta_B r_S^B + \epsilon_P
+    \label{e:market-disappears}
+    r_p=\Delta_ar_a-\Delta_br_b=(\Delta_a-\Delta_b)r_f + \Delta_a r_a^s - \Delta_b r_b^s + \epsilon_p
 \end{equation}
-As it can be seen, the market or non specific part of the returns disappears, with the portfolio returns depending mainly on the specific part of the returns of each of the assets. Or more specifically, on the difference between these components. 
+where $\epsilon_p = \Delta_a \epsilon_a - \Delta_b \epsilon_b$.
 
-Having a strategy with returns independent to that of the market can be very attractive, as this strategy can in theory provide positive reutrns regardless of the behaviour of the market. Furthermore, by combining several sources of uncorrelated returns -- as none of them are correlated to the market any longer -- one can achieve a very well diversified portfolio with a great return to risk relationship. 
+As it can be seen in equation \eqref{e:market-disappears}, the market or non specific part of the returns disappears. The portfolio returns end up depending mainly on the specific part of the returns of each of the assets, or more specifically, on the difference between these components. 
 
-The question of how one can find two such assets which move very similarly requires a bit more attention. As outlined by \cite{review_statistical_arbitrage} there are many approaches studied in the litereature to finding such pairs. These include the Distance approach, Time series approach, Stochastic control approach, Copula approach, Principal Component Analysis approach, etc. The one that will be relevant here hawever is one method which relies on the idea of cointegration. Suppose there are two or more time series $X_1, X_2$, with order of integration $d$. That is, by differentiating the time series $d$ times the resulting time series is covariance-stationary -- its mean and autocovariance are constant through time and its variance is finite. The two time series are cointegrated if there exists a linear combination of the two through which the resulting time series has an oder of integration of less than $d$. 
+Having a strategy with returns independent to the performance of the market can be very attractive, as this strategy can in theory provide positive reutrns regardless of the general market behaviour and trends. Furthermore, by combining several sources of uncorrelated returns -- as none of them are correlated to the market any longer -- one can achieve a very well diversified portfolio with a great risk adjusted performance. 
+
+The question of how one can find two such assets which "move very similarly" requires a bit more consideration. As outlined by \cite{review_statistical_arbitrage} there are many approaches studied in the litereature to finding such pairs. These include the Distance approach, Time series approach, Stochastic control approach, Copula approach, Principal Component Analysis approach, etc. The one that will be relevant here however is one method which relies on the idea of cointegration. 
+
+Suppose there are two time series $X_1, X_2$, with order of integration $d$. That is, by differentiating the time series $d$ times the resulting time series is covariance-stationary -- its mean and autocovariance are constant through time and its variance is finite. The two time series are cointegrated if there exists a linear combination of the two through which the resulting time series has an order of integration of less than $d$. This can also be applied to groups of more than two time series.  
 
 Note that this is similar to the removal of the market returns explained above but even more powerful. If enough cointegrated return time series are found, one could combine them having a portfolio with returns with a constant mean. Assured profits!
 
 \subsection{Significance of understanding PnL drivers}
-Understanding the Profit and Loss (PnL) drivers of a trading strategy is crucial for several reasons, particularly when it comes to long-short trading strategies like pairs trading. The PnL of a trading strategy represents the net financial outcome, capturing the gains or losses from all the trades executed under that strategy. However, the PnL itself is an aggregate measure that obscures the underlying factors contributing to the performance. Identifying and understanding these PnL drivers—such as market exposure, factor sensitivities, and alpha generation—allow traders, portfolio managers, and risk managers to assess the effectiveness, risks, and potential of the strategy.
+The Profit and Loss (PnL) of a trading strategy represents its net financial outcome, capturing the time series of gains or losses from all the trades executed under that strategy. However, the PnL itself is an aggregate measure that obscures the underlying factors contributing to the performance. Understanding the PnL drivers of a trading strategy is crucial for several reasons, particularly when it comes quantitative strategies with like the one studied in this work where the trading decisions cannot be intuitively understood. Identifying and understanding these drivers allows traders, portfolio managers, and risk managers to assess the effectiveness, risks, and potential of the strategy.
 
 \subsubsection{Classes of PnL drivers}
 \label{sec:classes-pnl-drivers}
 PnL drivers are essentially the components that influence the profitability of a trading strategy. In the context of long-short strategies, these drivers can include:
 \begin{itemize}
     \item \textbf{Market Exposure (Beta)}: The extent to which the strategy is exposed to broader market movements. Even in market-neutral strategies like pairs trading, unintentional beta exposure can impact PnL, especially in volatile market conditions. \cite{sharpe_1964}
-    \item \textbf{Factor Sensitivities}: These refer to the strategy's exposure to various risk factors such as size, value, momentum, and volatility. For instance, a strategy that unintentionally loads on the momentum factor may perform well in trending markets but suffer during reversals. \cite{asness_moskowitz_lasse_pedersen_2013}
-    \item \textbf{Alpha Generation}: Alpha represents the excess return of the strategy over a benchmark or risk-free rate, and it is often seen as a key driver of PnL in active strategies. Identifying sources of alpha—whether from market inefficiencies, behavioral biases, or other anomalies—is central to understanding a strategy's potential for sustainable returns. \cite{feibel_2003}
-    \item \textbf{Transaction Costs and Slippage}: These operational factors can erode PnL, particularly in high-frequency trading or strategies with rapid turnover. Understanding how transaction costs impact net returns is vital for accurate performance measurement and optimization. \cite{gerhold_guasoni_muhle_2013}
+    \item \textbf{Factor Sensitivities}: These refer to the strategy's exposure to various risk factors such as size, value, momentum, and volatility. For instance, a strategy with significant unintentional exposure to the momentum factor may perform well in trending markets but suffer during mean reverting market periods. \cite{asness_moskowitz_lasse_pedersen_2013}
+    \item \textbf{Alpha Generation}: Alpha represents the excess return of the strategy over a benchmark or risk-free rate, and it is often seen as a key driver of PnL in active strategies. Identifying sources of alpha -- whether from market inefficiencies, behavioral biases, or other anomalies -- is central to understanding a strategy's potential for sustainable returns. \cite{feibel_2003}
+    \item \textbf{Transaction Costs and Slippage}: These operational factors can erode PnL, particularly in high-frequency trading or strategies with low holding periods. Understanding how transaction costs impact net returns is vital for accurate performance measurement and optimization. \cite{gerhold_guasoni_muhle_2013}
     \item \textbf{Liquidity and Market Impact}: The liquidity of assets in the trading universe and the strategy's own impact on market prices can also be significant PnL drivers. Strategies that depend on trading less liquid instruments may encounter significant market impact, affecting overall profitability. \cite{tarun_chordia_roll_avanidhar_subrahmanyam_2001}.
 \end{itemize}
-
+\textcolor{red}{SI NO ESTÁ EN OTRO LADO, EXPLICAR QUE PASAMOS DE LAS DOS ÚLTIMAS}
 \subsubsection{Importance of understanding PnL drivers}
-Understanding each and all of the different drivers of a given strategy has some very relevant advantages
+Understanding each and all of the different drivers of a given strategy has some very relevant advantages:
 \begin{itemize}
     \item \textbf{Performance Attribution and Enhancement}: By decomposing PnL into its drivers, traders can pinpoint which elements of their strategy are contributing positively or negatively to performance. This allows for targeted improvements, whether through refining factor exposures, reducing costs, or enhancing alpha generation. \cite{grinold_kahn_1999}
     \item \textbf{Risk Management}: Knowledge of PnL drivers facilitates better risk management by highlighting potential sources of risk that may not be evident from aggregate performance metrics. For example, excessive exposure to a particular risk factor can lead to significant losses if market conditions shift. \cite{ang_2014}
-    \item \textbf{Strategic Adjustment and Adaptation}: Markets are dynamic, and the efficacy of a trading strategy can evolve over time. For example, historically value companies have outperfomed growth companies, although in some of the recent years this trend has reversed. A strategy that derived its performance from exposure to this factor would be affected. Understanding the underlying PnL drivers allows traders to adjust their strategies in response to changing market conditions or factor dynamics, thus maintaining or improving performance over time. \cite{lo_2004}
+    \item \textbf{Strategic Adjustment and Adaptation}: Markets are dynamic, and the efficacy of a trading strategy can evolve over time. For example, historically value companies have outperfomed growth companies, but in some of the recent years this trend has reversed. A strategy that derived its performance from exposure to this factor would be affected. Understanding the underlying PnL drivers allows traders to adjust their strategies in response to changing market conditions or factor dynamics, thus maintaining or improving performance over time. \cite{lo_2004}
     \item \textbf{Investor Communication and Transparency}: For portfolio managers, clearly articulating the drivers of PnL is essential for building and maintaining investor trust. Investors are increasingly demanding transparency and want to understand the sources of returns and the risks involved in the strategies they are investing in. \cite{elif_baykal_2019}
 \end{itemize}
 \subsection{Factor models}
@@ -87,17 +101,17 @@ Since the classical asset pricing model proposed by \cite{sharpe_1964} and \cite
 where $\beta_i^k$ are the different factor loadings for asset $k$ corresponding to each of the factors $f_i$. 
 Note how the classical $CAPM$ model is one such model with only one factor, the excess market returns. 
 \begin{equation}
-    r_A=r_f+\beta_A(r_M-r_f) + \epsilon_A    
+    r_a=r_f+\beta_a(r_M-r_f) + \epsilon_a    
 \end{equation}
 
-The same models work for explaining past returns as for modeling expected returns, when all the factors are stated in expected terms such as
+The same models that work for explaining past returns can also be used for modeling expected returns, when all the factors are stated in expected terms such as
 \begin{equation}
-    E\left[r_A\right]=r_f+\beta_A(E\left[r_M\right]-r_f)
+    E\left[r_a\right]=r_f+\beta_a(E\left[r_M\right]-r_f)
 \end{equation}
 
-Another classical factor model is the one introduced by \cite{french_1992}, where two additional factor are added to compensate for the fact that there is some information regarding stock returns that aren't captured in the exposure to the market excess returns. For example, historically value stocks have outperformed growth stocks while small companies have outperformed big companies.
+Another classical factor model is the one introduced by \cite{french_1992}, where two additional factor are added to compensate for the fact that there is some information regarding stock returns that isn't captured in the exposure to the market excess returns. For example, historically value stocks have outperformed growth stocks while small companies have outperformed big companies.
 \begin{equation}
-    r_A=r_f + \beta_{r_M-r_f}(r_M-r_f) + \beta_{HML}HML + \beta_{SMB}SMB + \epsilon_A
+    r_a=r_f + \beta_{r_M-r_f}(r_M-r_f) + \beta_{HML}HML + \beta_{SMB}SMB + \epsilon_a
 \end{equation}
 
 These factors will be explained in more depth when the factor model used in this work is presented. 
@@ -115,7 +129,8 @@ Even though these may seem like different types of the same thing, in reality th
 \subsection{Objectives and scope of study}
 Once the basic building blocks of the study have been layed down and understood, it is possible to explain what the purpose of the study is. 
 
-First, a pairs-trading implementation proposed by \cite{gallego_2023} is reviewed and adapted, first from a fundamental point of view to add some changes to the way the strategy proposed by \cite{ioannis_2023} was implemented and then from a technical point of view, so it is able to correctly perform a backtest on a much larger universe of assets. Then, this strategy is run on an extended universe of assets and its performance is analyzed by its own merit and in comparison to a benchmark strategy. The performance is then dissected into the long and short positions sepparately and each leg is further analyzed. 
+First, a pairs-trading implementation proposed by \cite{gallego_2023} is reviewed and adapted, first from a fundamental point of view to add some changes to the way the strategy proposed by \cite{ioannis_2023} was implemented and then from a technical point of view, so it is able to successfully perform a backtest on a much larger universe of assets. Then, this strategy is run on an extended universe of assets and its performance is analyzed by its own merit and in comparison to a benchmark strategy. The performance is then dissected into the long and short positions sepparately and each leg is further analyzed. 
 Then, a primary factor model is implemented and the returns of the strategy are analyzed through this model.  
-Lastly, the alpha obtained by the strategy is further analyzed through a secondary fundamental factor model in order to further extract all possible information from the returns of the strategy. 
+Lastly, the alpha obtained by the strategy according to said model is further analyzed through a secondary fundamental factor model in order to further extract all possible key drivers of the returns of the strategy. 
+
 Out of all the types of PnL drivers outlined in section \nameref{sec:classes-pnl-drivers}, only market exposure, some factor sensitivities and alpha generation are analyzed. Transaction costs are considered negligible due to the daily frequency of transactions and the small impact compared with the other factors, while slippage and liquidity and market impact have also been ignored due to the high trading volume of the selected universe of assets, the S\&P500. 
