@@ -1,5 +1,5 @@
 \section{Technical Description}
-As a starting point for the implementation, the work by \cite{gallego_2023} has been kindly taken as reference. In order to better follow the changes here pointed out, it is recommended to first refer to that work.
+For the implementation of the strategy, the work by \cite{gallego_2023} has been taken as a starting point. Here outlined are the adaptations and improvements that have been made to that codebase. In order to better follow the changes here pointed out, it is recommended to first refer to that work.
 
 The main changes performed on the implementation of the strategy are the following:
 
@@ -12,7 +12,7 @@ The main changes performed on the implementation of the strategy are the followi
     \item \textbf{Active positions}: Similarly to the win rate, an in-built counter has been implemented to measure the number of pairs which are being actively traded on any given day.  
     \item \textbf{Pairs considered}: Since the cointegration estimator and the position sizing methods assumes which asset of the pair is long and which is short, the set of pairs considered for trading has been extended to enable both assets to be either long or short in all pairs. 
     \item \textbf{Process batching}: In order to enable the strategy to be run on a much larger universe of assets, the parameter estimation process and the return calculation process for all pairs has been divided into batches. After a given batch of pair's parameters are estimated, they are saved as a pickle file. The joint returns of that set of pairs are calculated and again saved to permanent memory as a pickle file, only after the returns of pairs in which the trigger was not activated for the whole period are erased to reduce the unnecessary use of memory. The variables containing all pair parameters and return calculations are erased from RAM and the next batch of pairs can be calculated. If the process crashes, it does not have to restart from the beginning as the batches which have already finished have been saved and don't need to be calculated again. 
-    \\After all batches have been calculated, all saved sets of returns are read into memory and aggreagated, yielding the final set of strategy returns, which can be then finally saved for later analysis. This batching process had to be implemented as the CPU did not have enough memory to hold all the variables for the parameter estimation process or the return calculation process for all pairs, even though most of the calculations were already performed in parallel in the original implementation and thus the variables were reused reducing the memory footprint. The memory profiling of the program before the changes were implemented can be seen in \autoref{fig:memory-profile}.
+    \\After all batches have been calculated, all saved sets of returns are read into memory and aggreagated, yielding the final set of strategy returns, which can be then finally saved for later analysis. This batching process had to be implemented as the memory requirements of all the variables and results for the parameter estimation process and the return calculation process for all pairs exceeded the equipment's capacity, even though most of the calculations were already performed in parallel in the original implementation and thus the variables were reused reducing the memory footprint. The memory profiling of the program before the changes were implemented can be seen in \autoref{fig:memory-profile}.
     \newpage
     \begin{figure}[h]
         \centering
@@ -21,5 +21,7 @@ The main changes performed on the implementation of the strategy are the followi
         \label{fig:memory-profile}
     \end{figure}
     
-    In the figure it can be seen how the memory usage grows fast in the parameter estimation process, and after a peak is reached, the process tries to maintain the execution running bu is finally killed after about a minute. 
+    In the figure it can be seen how the memory usage grows fast in the parameter estimation process, and after a peak is reached, the process tries to maintain the execution running but finally the process is aborted by the system after about a minute. 
 \end{itemize}
+
+For more details regarding the technical implementation, refer to \autoref{sec:code} \nameref{sec:code}.

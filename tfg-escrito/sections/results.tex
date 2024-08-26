@@ -140,7 +140,7 @@ In \autoref{fig:strat-open-pairs} it can be seen that at any given point there a
 It is also relevant how there doesn't seem to be any clear relationship between the number of pairs being traded and the distribution of returns, with returns behaving similarly in periods of high volume of open positions and in periods of low volume of open positions. 
 
 \subsubsection{Comparison with Johansen Portfolio}
-After having seen in general terms what the performance of the strategy looks like, it is pertinent now to compare it with a more similar strategy, that of the Johansen cointegration portfolio. This is another pairs-trading cointegration based strategy, and thus it is expected to be a lot more similar than to the S\&P500. The general comparison of the cumulative returns of both is the following
+After having seen in general terms what the performance of the strategy looks like, it is pertinent now to compare it with a more similar strategy, that of the Johansen cointegration portfolio. This is another pairs-trading cointegration based strategy, and thus it is expected to be a lot more similar than to the S\&P500. The general comparison of the cumulative returns of both is the following:
 
 \begin{figure}[ht]
     \includegraphics[width=\linewidth]{assets/strat-vs-johansen.png}
@@ -177,7 +177,7 @@ It can be seen how the annual returns are ever so slightly superior for the stra
     \label{fig:strat-vs-johansen-ret-dist}
 \end{figure}
 
-In \autoref{fig:strat-vs-johansen-ret-dist} it is made apparent how both distributions are much more similar than what may appear through the skew and kurtosis numbers. It can be seen in fact how the proposed pairs-trading strategy has a return distribution practically equal to its pairs-trading vanilla equivalent. It is due to higher density of abova average return days -- around the $\sim$90\% percentile -- that the proposed strategy's superior performance is materialized.    
+In \autoref{fig:strat-vs-johansen-ret-dist} it is made apparent how both distributions are much more similar than what may appear through the skew and kurtosis numbers. It can be seen in fact how the proposed pairs-trading strategy has a return distribution practically equal to its pairs-trading vanilla equivalent. It is due to high frequency of returns at around the $\sim$90\% percentile that the proposed strategy's superior performance is materialized.    
 
 If a more practical comparison wants to be made, it could be useful to again look at the same metrics already shown in \autoref{table:risk-adjusted-strat-vs-sp500} but comparing the strategy to its new benchmark. 
 
@@ -218,7 +218,7 @@ When first looking at the long leg of the strategy's cumulative returns compared
     \label{fig:long-vs-strat}
 \end{figure}
 
-As it can be seen in \autoref{fig:long-vs-strat}, the overall returns of the long leg seem to be superior. However, upon closer inspection it is seen how this is only achieved through higher volatility. In fact, when matching the volatility of both these are the results.
+As it can be seen in \autoref{fig:long-vs-strat}, the overall returns of the long leg seem to be superior. However, upon closer inspection it is seen how this is only achieved through higher volatility. In fact, when matching the volatility of both these are the results:
 \newpage
 \begin{figure}[ht]
     \captionsetup{justification=centering}
@@ -475,6 +475,6 @@ Through a process of iterative elimination of non significant variables, a final
 
 In this final regression, all parameters are significant at all significance level, except for the Return on Capital which is singificant at the 5\% confidence level. 
 
-The first interesting piece of information, like with Sherlock's dog, is given by what is missing. All factors that have been dropped due to their low significance -- namely Gross Profit over Assets, Enterprise Value to EBIT and Price to Earnings ratio -- can be inferred to not be drivers of the performance of the strategy. That is, those measures seem to be irrelevant to how the strategy performs, so including or removing assets based on those factors alone shouldn't have any significant impact given all other factors remain unchanged. 
+The first interesting piece of information, like with Sherlock's dog, is given by what is missing. All factors that have been dropped due to their low significance -- namely Gross Profit over Assets, Enterprise Value to EBIT and Price to Earnings ratio -- can be inferred not to be drivers of the performance of the strategy. That is, those measures seem to be irrelevant to how the strategy performs, so including or removing assets based on those factors alone shouldn't have any significant impact given all other factors remain unchanged. 
 
 According to \autoref{table:secondary-regression-results-2}, the strategy seems to outperform due to the assets with high market capitalization in the most significant way, but also due to those on the higher end of the valuation spectrum according to the $BTM$, same according to the $EVEBITDA$ and  with high profitability according to $ROC$. Note however how this could be due to sectoral preferences. The Tech sector for example fits the description for all factors, so it could also be that the overperformance of the strategy is accentuated due to exposure to this sector. 
