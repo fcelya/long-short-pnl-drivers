@@ -314,7 +314,7 @@ Referring again to the four first moments can be helpful in shedding some quanti
         \toprule
         Metric & \multicolumn{2}{c}{Value} \\ 
         \cmidrule(lr){2-3}
-            & Long leg & Strategy \\
+            & Short leg & Strategy \\
         \midrule
         CAGR & 5.05\% & 7.65\% \\
         Annualized Volatility & 5.86\% & 8.79\% \\
@@ -322,7 +322,7 @@ Referring again to the four first moments can be helpful in shedding some quanti
         Kurtosis & 7.9 & 7.9 \\
         \bottomrule
     \end{tabular}
-    \caption{Main moments of the long leg of the strategy's return distribution}
+    \caption{Main moments of the short leg of the strategy's return distribution}
     \label{table:main-moments-short-vs-strat}
 \end{table}
 
@@ -336,7 +336,7 @@ The usual more practical metrics are again shown in \autoref{table:risk-adjusted
         \toprule
         Metric & \multicolumn{2}{c}{Value} \\ 
         \cmidrule(lr){2-3}
-            & Long leg & Strategy \\
+            & Short leg & Strategy \\
         \midrule
         Sharpe ratio & 1.08 & 1.16 \\
         Sortino ratio & 1.58 & 1.69 \\
@@ -373,13 +373,13 @@ First, a quick overview of the different factors can be seen through the correla
 
 This main regression has been compared with other reference regressions. These follow the $CAPM$, Fama-French 3 factor model and the Carhart 4 factor model. This comparison has been performed in order to ensure the results given by the main regression are not spurious and fall in line with what more simple methods estimate for each of the drivers. Through the comparison of all regressions, a more robust result can be presented regarding the loadings for each of the factors. 
 
-In \autoref{table:primary-regression-results} the t-statistic has also been included in parentheses below each estimated coefficient. No reference to the p-value of the t-statistic has been given as all coefficients are relevant at the $1\%$ level for all models. The $R^2$ has also been included. It can be noted how the $R^2$ increases with the number of factors as expected. The most significant jump is given by adding the two additional factors in the Fama-French model, with very little additional variance being explained by the $MOM$ and $IVS$ factors. The final model's $R^2$ stays at a moderate $2.67\%$, hinting at the idea that there may be other drivers at play needed to fully explain the performance of the strategy, hence why the secondary regression has been applied. Note that the number of observations in the regression is of 1.451.108 observations related to 398 different entities -- the 398 stocks remaining in the S\&P500 during the studied period. The F-statistic of the whole regression for the five factor model is 8004.8, demonstrating a joint significance for the model in addition to the individual significance of each of the coefficients. 
+In \autoref{table:primary-regression-results} the t-statistic has also been included in parentheses below each estimated coefficient. No reference to the p-value of the t-statistic has been given as all coefficients are relevant at the $1\%$ level for all models. The $R^2$ has also been included. It can be noted how the $R^2$ increases with the number of factors as expected. The most significant jump is given by adding the two additional factors in the Fama-French model, with very little additional variance being explained by the $MOM$ and $IVP$ factors. The final model's $R^2$ stays at a moderate $2.67\%$, hinting at the idea that there may be other drivers at play needed to fully explain the performance of the strategy, hence why the secondary regression has been applied. Note that the number of observations in the regression is of 1.451.108 observations related to 398 different entities -- the 398 stocks remaining in the S\&P500 during the studied period. The F-statistic of the whole regression for the five factor model is 8004.8, demonstrating a joint significance for the model in addition to the individual significance of each of the coefficients. 
 
 \begin{table}[ht]
     \centering
     \begin{tabular}{rcccc}
         \toprule
-        Model & CAPM & FF3 & Carhart & Carhart+IVS \\ 
+        Model & CAPM & FF3 & Carhart & Carhart+IVP \\ 
         \midrule
         $\alpha$ & 0.0005 & 0.0005 & 0.0005 & 0.0004 \\
                  & (98.5) & (99.0) & (98.9) & (63.3) \\[8px]
@@ -391,7 +391,7 @@ In \autoref{table:primary-regression-results} the t-statistic has also been incl
                       & & (-33.7) & (-42.5) & (-42.5) \\[8px]
         $\beta_{MOM}$ & & & -0.0137 & -0.0135 \\
                       & & & (-29.4) & (-28.9) \\[8px]
-        $\gamma_{IVS}$ & & & & 0.1085 \\
+        $\gamma_{IVP}$ & & & & 0.1085 \\
                        & & & & (9.4) \\[8px]
         \midrule
         $R^2$ & 1.71\% & 2.61\% & 2.66\% & 2.67\% \\
@@ -406,7 +406,7 @@ Several observations can be made from the results of the coefficient estimations
 
 Regarding the coefficients themselves, it can be seen how, as already shown in the section \nameref{sec:overall-performance}, the strategy has a negative correlation to the market. It can also be seen how the strategy has a positive relation to the size factor and negative to the momentum and value factors. The negative exposure to the momentum could be expected, given how this strategy is in its essence a mean reverting strategy. However, it is interesting to see how the outperformance of low value and low size companies are key drivers of the performance of the strategy. 
 
-Finally, regarding the Idiosyncratic Volatility Spread, it can be seen how the strategy has a great exposure to this factor. Its performance seems to be greatly driven by high exposure to stocks with high volatility spread, which again is to be expected as higher volatility leads to more opportunities to enter a position away from the long term equilibrium and thus more opportunities to profit when the stocks return to their cointegration equilibrium. More specifically, an increase in 1\% for the idiosyncratic volatility spread across stocks leads to an increase of 0.1 percentage point in the daily returns of the strategy. 
+Finally, regarding the Idiosyncratic Volatility Premium, it can be seen how the strategy has a great exposure to this factor. Its performance seems to be greatly driven by high exposure to stocks with high idiosyncratic volatility premium, which again is to be expected as higher volatility leads to more opportunities to enter a position away from the long term equilibrium and thus more opportunities to profit when the stocks return to their cointegration equilibrium. More specifically, an increase in 1\% for the Idiosyncratic Volatility Premium across stocks leads to an increase of 0.1 percentage point in the daily returns of the strategy. These companies can be found in sectors with rapid innovation, frequent regulatory changes or high sensitivity to firm-specific news, like the technology sector, or the pharmacetical or biotechnology sectors, with companies such as Tesla, Nvidia or Moderna being examples of specific stocks. 
 
 Finally, there seems to be a consistent $\alpha$ of unexplained performance by the used five factor model. This $\alpha$ of 0.04\% in daily returns is a very significant 10.08\% in annual outperformance over the five factor benchmark model. 
 
@@ -427,7 +427,7 @@ But first, a preliminary look at the correlation between the different factors c
 
 The first thing to note in \autoref{fig:factors-secondary-corr-matrix} is the low correlation among the seven different factors, with the highest being a correlation of 30\%. This highest value is unsurprisingly that between $EVEEBIT$ and $EVEBITDA$, variables which transmit similar value related information, but which however are not as similar as the names may suggest. The next highest values are between $ROC$ and $GPA$, both profitability related metrics, and between $ROC$ and $EVEBITDA$, but even these third and seconds highest correlation pairs have a correlation of below 20\%. Most of the values are in the single digits, sign of the high orthogonality between most pairs of assets. 
 
-The first secondary regression, with all factors indicated in the model shown in equation \eqref{eq:secondary-regression} and already presented in \autoref{fig:factors-secondary-corr-matrix}, has had the coefficients estimated on the alphas of all available quarters with the information of all available companies. The results of said estimation can be found in \autoref{table:secondary-regression-results-1}.
+The first secondary regression, with all factors indicated in the model shown in equation \eqref{eq:secondary-regression} and already presented in \autoref{fig:factors-secondary-corr-matrix}, has had the coefficients estimated on the alphas of all available quarters with the information of all available companies. The results of the estimation can be found in \autoref{table:secondary-regression-results-1}.
 
 In this regression the $R^2$ achieved is of 1.09\%. There are 58 consecutive time periods corresponding for the 58 consecutive quarters in the studied period. The regression is jointly significant at all significance values with an F-statistic of 32.6. Again, individual entity effects are included as per \cite{ian_wagner_2019}. 
 \newpage
