@@ -16,8 +16,11 @@ The basic cointegration model used by the investor of two assets with prices $y_
     z_t=\ln y_t - \ln x_t
 \end{equation}
 
-where $\mu_y$, $\mu_x$, $\lambda_1$, $\lambda_2$, $\sigma_y$ and $\sigma_x$ are constant parameters and $W_{y,t}$ and $W_{x,t}$ are standard Brownian motions with zero drift rate and unit variance rate. Additionally, the investor has a cash account $B_t$
-with a constant return $r$ following the dynamics
+where $\mu_y$, $\mu_x$, $\lambda_1$, $\lambda_2$, $\sigma_y$ and $\sigma_x$ are constant parameters and $W_{y,t}$ and $W_{x,t}$ are standard Brownian motions with zero drift rate and unit variance rate. 
+
+The pairs selection mechanism outlined in the paper follows these equations. At the beginning of each trading period -- 6 months in this case -- for every single combination of pairs, the $\mu$, $\lambda$ and $\sigma$ parameters for each asset together with the correlation $\rho_{yx}$ between both asset's brownian motions is estimated through Maximum Likelihood Estimation for a certain lookback period -- of 3 years in this case. A pair is determined to exhibit a mean reverting behaviour and is thus susceptible to be profitably traded if $\lambda_1 + \lambda_2 > 0$ (stability condition) and $\lambda_1 \lambda_2 < 0$ (cointegration condition). Every pair exhibiting such properties is selected to be traded during the following trading period. 
+
+Additionally to the two assets, the investor has a cash account $B_t$ with a constant return $r$ following the dynamics
 \begin{equation}
     dB_t=rB_tdt
 \end{equation}
