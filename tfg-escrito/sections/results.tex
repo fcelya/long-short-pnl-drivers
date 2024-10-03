@@ -23,7 +23,12 @@ In order to understand whether the volatility truly is lower, a useful visualiza
     \caption{Cumulative returns of the volatility matched strategy compared with the S\&P500}
     \label{fig:strat-vs-sp500-vol-matched}
 \end{figure}
-These are the returns that would be obtained investing in the strategy if the position were leveraged enough to match the volatility of the S\&P500. If a given investor is comfortable enough with the level of risk given by a basic market investment, these are the equivalent results that could be obtained with the given strategy.
+These are the returns that would be obtained investing in the strategy if the position were leveraged enough to match the volatility of the S\&P500. That is, if the investor were to borrow enough money and put it in the strategy so that the volatility of said setup is the same volatility as the benchmark. The returns are thus:
+\begin{equation}
+    r_{vm}=\frac{\sigma_b}{\sigma_s}r_s
+\end{equation}
+where $r_{vm}$ are the volatility matched returns, $\sigma_b$ is the benchmark's volatility, $\sigma_s$ is the strategy's volatility and $r_s$ is the strategy's returns. 
+If a given investor is comfortable enough with the level of risk given by a basic market investment, these are the equivalent results that could be obtained with the given strategy.
 
 Appart from visualizing the cumulative performance, it will also be helpful to showcase some numerical results. 
 
@@ -88,7 +93,7 @@ Some other risk-adjusted measures for the strategy are
     \label{table:risk-adjusted-strat-vs-sp500}
 \end{table}
 
-In \autoref{table:risk-adjusted-strat-vs-sp500} the intuition gained with the previous metrics is solidified. Through the main risk-adjusted return metrics it can be seen how the strategy's performance is clearly superior to that of the S\&P500. Regarding other purely risk measures like those relative to drawdowns, it can also be seen how the periods of losses with the strategy are less acute and shorter. Finally, it can also be seen how the strategy's performance is completely market neutral if not slightly opposite to the market, with a slightly negative beta and correlation. The superior performance together with the hedging and diversification potential it brings provides for a very significant alpha. 
+In \autoref{table:risk-adjusted-strat-vs-sp500} the intuition gained with the previous metrics is solidified. Through the main risk-adjusted return metrics it can be seen how the strategy's performance is clearly superior to that of the S\&P500. Regarding other purely risk measures like those relative to drawdowns, it can also be seen how the periods of losses with the strategy are less acute and shorter. Finally, it can also be seen how the strategy's performance is completely market neutral if not slightly opposite to the market, with a slightly negative beta and correlation. This means that the strategy can be effectively used as a hedge to a market investment, partially compensating in moments of low or negative market returns. The superior performance together with the hedging and diversification potential it brings provides for a very significant alpha. 
 
 For a more in depth explanation of these metrics, how they are calculated and their general interpretation and significance refer to \autoref{sec:performance-metrics-explained} \nameref{sec:performance-metrics-explained}.
 
@@ -100,7 +105,7 @@ When taking a dynamic view of these figures, it can be seen how temporally robus
     \label{fig:strat-vs-sp500-rolling-beta}
 \end{figure}
 
-Observing \autoref{fig:strat-vs-sp500-rolling-beta} it can be seen how the beta of the strategy stays consistently very close to 0 and generally on the negative side, with very few ocurrences of the beta becoming positive. It is specially significant how in the moments of biggest crisis, i.e. the 2020 Covid-19 market crash, the beta becomes even more significantly negative showcasing the resilience of the strategy to market crashes. This is specially relevant given the findings by \cite{sandoval_franca_2012} showing that during market crashes most assets become a lot more strongly correlated, making it even more difficult for investors to diversify their investments in these times. 
+In \autoref{fig:strat-vs-sp500-rolling-beta} the rolling beta can be seen. That is, at each point in time the beta obtained with the previous 6 or 12 month window. Observing this figure it can be seen how the beta of the strategy stays consistently very close to zero and generally on the negative side, with very few ocurrences of the beta becoming positive. It is specially significant how in the moments of biggest crisis, i.e. the 2020 Covid-19 market crash, the beta becomes even more significantly negative showcasing the resilience of the strategy to market crashes. This is conforms perfectly with the results obtained by \cite{ioannis_2023}. This behaviour is specially relevant given the findings by \cite{sandoval_franca_2012} showing that during market crashes most assets become a lot more strongly correlated, making it even more difficult for investors to diversify their investments in these times. 
 
 % Finally, some other more practical metrics that could be useful from the trading perspective
 % \begin{table}[ht]
@@ -203,7 +208,7 @@ If a more practical comparison wants to be made, it could be useful to again loo
     \label{table:risk-adjusted-strat-vs-johansen}
 \end{table}
 
-A clear dominance by the strategy, although by margins much smaller than in the previous comparison, can be seen across all metrics. This dominance is most apparent in the drawdown statistics, where the Johansen portfolio falls prey to a long period of bad performance after the 2020 crash. The alpha of the strategy with respect to the Johansen portfolio is also apparent. And very interestingly, although both strategies are sources of uncorrelated returns, following the same principle of cointegration leveraged through pairs-trading, the correlation between both strtegies is virtually non existant. Although operating under the same principles, it seems like both strategies are able to find different pairs and take different positions throughought the whole time period.
+A clear dominance by the strategy, although by margins much smaller than in the previous comparison, can be seen across all metrics. This dominance is most apparent in the drawdown statistics, where the Johansen portfolio falls prey to a long period of bad performance after the 2020 crash. The alpha of the strategy with respect to the Johansen portfolio is also apparent. And very interestingly, although both strategies are sources of uncorrelated returns, following the same principle of cointegration leveraged through pairs-trading, the correlation between both strtegies is virtually non existant. Although operating under the same principles, it seems like both strategies are able to find different pairs and take different positions throughout the whole time period. Furthermore, the pair selection method introduced in \cite{ioannis_2023} and implemented here has some advantages apart from performance related ones like finding more pairs and better performing ones. It also can be performed on a greater universe of assets in a computationally more efficient and faster way than the Johansen pair selection method. 
 
 \subsubsection{Disaggregated Performance}
 In previous sections, the general performance of the strategy as a whole has been thoroughly analyzed, against the universe of assets and against a more comparable benchmark. However, this being a pairs-trading strategy offers a possible level of analysis that hasn't been much exploited until now in the literature. It is possible to disaggregate the performance of the strategy into the long and the short leg of the strategy -- that is, the performance of all operations where the strategy went long on a stock and those where it went short on a stock -- and analyze each sepparately, observing what features of the final strategy are brought by each half. 
@@ -219,7 +224,6 @@ When first looking at the long leg of the strategy's cumulative returns compared
 \end{figure}
 
 As it can be seen in \autoref{fig:long-vs-strat}, the overall returns of the long leg seem to be superior. However, upon closer inspection it is seen how this is only achieved through higher volatility. In fact, when matching the volatility of both these are the results:
-\newpage
 \begin{figure}[ht]
     \captionsetup{justification=centering}
     \includegraphics[width=\linewidth]{assets/long-vs-strat-vol-matched.png}
@@ -249,7 +253,7 @@ To see more precisely what this behaviour means in quantitative terms, the four 
     \label{table:main-moments-long-vs-strat}
 \end{table}
 
-As it could be inferred from previous observations in \autoref{fig:long-vs-strat} and \autoref{fig:long-vs-strat-vol-matched}, the mean returns and volatility of the long part of the strategy are higher than those of the strategy itself. However, looking at the third and fourth moments something more interesting comes to light. If the long portion of the strategy truly behaved like a leveraged position of the whole strategy, the skew and kurtosis would remain constant. However, the long leg exhibits a lower skew than the complete strategy, providing lower long term compound returns and more exposure to catastrophic tail negative return scenarios. Regarding the kurtosis of the distribution, it is also not the same. In this case, adding the negative positions increases this fourth moment, supposedly due to some extreme movements that are exhibited by the short leg of the strategy. All of this can be seen more clearly in \autoref{fig:long-vs-strat-ret-dist}.
+As it could be inferred from previous observations in \autoref{fig:long-vs-strat} and \autoref{fig:long-vs-strat-vol-matched}, the mean returns and volatility of the long part of the strategy are higher than those of the strategy itself. However, looking at the third and fourth moments something more interesting comes to light. If the long portion of the strategy truly behaved like a leveraged position of the whole strategy, the skew and kurtosis would remain constant. However, the long leg exhibits a lower skew than the complete strategy, providing lower long term compound returns and more exposure to catastrophic tail negative return scenarios. Regarding the kurtosis of the distribution, it is also not the same. In this case, adding the negative positions increases this fourth moment, supposedly due to some extreme movements that are exhibited by the short leg of the strategy. This higher kurtosis, together with a positive skew, means that tail positive events are larger for the complete strategy and this facilitates having better performance with lower risk. All of this can be seen more clearly in \autoref{fig:long-vs-strat-ret-dist}.
 
 \begin{figure}[ht]
     \captionsetup{justification=centering}
@@ -296,7 +300,6 @@ After having looked at the long leg, it is now time to look at how the performan
 \end{figure}
 
 In this case, it can be seen how the situation seems to be the inverse one. The overall returns seem to be lower, albeit that also seems to imply a lower volatility. Referring to the volatility matched comparison is again a good reference point for checking whether these intuitions seem correct.
-\newpage
 \begin{figure}[ht]
     \captionsetup{justification=centering}
     \includegraphics[width=\linewidth]{assets/short-vs-strat-vol-matched.png}
@@ -329,7 +332,6 @@ Referring again to the four first moments can be helpful in shedding some quanti
 Again, the previous observations regarding the mean returns and their volatility are confirmed. This time however, the distribution is itself much more similar to the complete strategy's one when regarding the third and fourth moments. 
 
 The usual more practical metrics are again shown in \autoref{table:risk-adjusted-short-vs-strat}.
-\newpage
 \begin{table}[ht]
     \centering
     \begin{tabular}{rll}
@@ -361,7 +363,6 @@ Now, with a better understanding of the strategy's overall performance, how it c
 \subsubsection{Primary regression}
 
 First, a quick overview of the different factors can be seen through the correlation of the five in \autoref{fig:factors-corr-matrix}. It can be seen how the five factors are mostly uncorrelated, with the $MOM$ factor being the one with the highest correlation, specially to the $HML$ factor but also to the market excess returns. 
-\newpage
 \begin{figure}[ht]
     \centering
     \includegraphics[width=300px]{assets/factors-corr-matrix.png}
@@ -373,13 +374,13 @@ First, a quick overview of the different factors can be seen through the correla
 
 This main regression has been compared with other reference regressions. These follow the $CAPM$, Fama-French 3 factor model and the Carhart 4 factor model. This comparison has been performed in order to ensure the results given by the main regression are not spurious and fall in line with what more simple methods estimate for each of the drivers. Through the comparison of all regressions, a more robust result can be presented regarding the loadings for each of the factors. 
 
-In \autoref{table:primary-regression-results} the t-statistic has also been included in parentheses below each estimated coefficient. No reference to the p-value of the t-statistic has been given as all coefficients are relevant at the $1\%$ level for all models. The $R^2$ has also been included. It can be noted how the $R^2$ increases with the number of factors as expected. The most significant jump is given by adding the two additional factors in the Fama-French model, with very little additional variance being explained by the $MOM$ and $IVP$ factors. The final model's $R^2$ stays at a moderate $2.67\%$, hinting at the idea that there may be other drivers at play needed to fully explain the performance of the strategy, hence why the secondary regression has been applied. Note that the number of observations in the regression is of 1.451.108 observations related to 398 different entities -- the 398 stocks remaining in the S\&P500 during the studied period. The F-statistic of the whole regression for the five factor model is 8004.8, demonstrating a joint significance for the model in addition to the individual significance of each of the coefficients. 
+In \autoref{table:primary-regression-results} the t-statistic has also been included in parentheses below each estimated coefficient. No reference to the p-value of the t-statistic has been given as all coefficients are relevant at the $1\%$ level for all models. The $R^2$ has also been included. It can be noted how the $R^2$ increases with the number of factors as expected. The most significant jump is given by adding the two additional factors in the Fama-French model, with very little additional variance being explained by the $MOM$ and $IEP$ factors. The final model's $R^2$ stays at a moderate $2.67\%$, hinting at the idea that there may be other drivers at play needed to fully explain the performance of the strategy, hence why the secondary regression has been applied. Note that the number of observations in the regression is of 1.451.108 observations related to 398 different entities -- the 398 stocks remaining in the S\&P500 during the studied period. The F-statistic of the whole regression for the five factor model is 8004.8, demonstrating a joint significance for the model in addition to the individual significance of each of the coefficients. 
 
 \begin{table}[ht]
     \centering
     \begin{tabular}{rcccc}
         \toprule
-        Model & CAPM & FF3 & Carhart & Carhart+IVP \\ 
+        Model & CAPM & FF3 & Carhart & Carhart+IEP \\ 
         \midrule
         $\alpha$ & 0.0005 & 0.0005 & 0.0005 & 0.0004 \\
                  & (98.5) & (99.0) & (98.9) & (63.3) \\[8px]
@@ -391,7 +392,7 @@ In \autoref{table:primary-regression-results} the t-statistic has also been incl
                       & & (-33.7) & (-42.5) & (-42.5) \\[8px]
         $\beta_{MOM}$ & & & -0.0137 & -0.0135 \\
                       & & & (-29.4) & (-28.9) \\[8px]
-        $\gamma_{IVP}$ & & & & 0.1085 \\
+        $\gamma$ & & & & 0.1085 \\
                        & & & & (9.4) \\[8px]
         \midrule
         $R^2$ & 1.71\% & 2.61\% & 2.66\% & 2.67\% \\
@@ -406,7 +407,7 @@ Several observations can be made from the results of the coefficient estimations
 
 Regarding the coefficients themselves, it can be seen how, as already shown in the section \nameref{sec:overall-performance}, the strategy has a negative correlation to the market. It can also be seen how the strategy has a positive relation to the size factor and negative to the momentum and value factors. The negative exposure to the momentum could be expected, given how this strategy is in its essence a mean reverting strategy. However, it is interesting to see how the outperformance of low value and low size companies are key drivers of the performance of the strategy. 
 
-Finally, regarding the Idiosyncratic Volatility Premium, it can be seen how the strategy has a great exposure to this factor. Its performance seems to be greatly driven by high exposure to stocks with high idiosyncratic volatility premium, which again is to be expected as higher volatility leads to more opportunities to enter a position away from the long term equilibrium and thus more opportunities to profit when the stocks return to their cointegration equilibrium. More specifically, an increase in 1\% for the Idiosyncratic Volatility Premium across stocks leads to an increase of 0.1 percentage point in the daily returns of the strategy. These companies can be found in sectors with rapid innovation, frequent regulatory changes or high sensitivity to firm-specific news, like the technology sector, or the pharmacetical or biotechnology sectors, with companies such as Tesla, Nvidia or Moderna being examples of specific stocks. 
+Finally, regarding the Idiosyncratic Equity Volatility Premium, it can be seen how the strategy has a great exposure to this factor. Its performance seems to be greatly driven by high exposure to stocks with high idiosyncratic volatility premium, which again is to be expected as higher volatility leads to more opportunities to enter a position away from the long term equilibrium and thus more opportunities to profit when the stocks return to their cointegration equilibrium. More specifically, an increase in 1\% for the Idiosyncratic Equity Volatility Premium across stocks leads to an increase of 0.1 percentage point in the daily returns of the strategy. These companies can be found in sectors with rapid innovation, frequent regulatory changes or high sensitivity to firm-specific news, like the technology sector, or the pharmacetical or biotechnology sectors, with companies such as Tesla, Nvidia or Moderna being examples of specific stocks. 
 
 Finally, there seems to be a consistent $\alpha$ of unexplained performance by the used five factor model. This $\alpha$ of 0.04\% in daily returns is a very significant 10.08\% in annual outperformance over the five factor benchmark model. 
 
@@ -416,7 +417,6 @@ As it could be seen in the previous section, the five factor model used to under
 In order to achieve that, the previous regression is performed on a rolling basis with quarterly data and a cross section regression is performed with company data on the different $\alpha$ obtained on those regressions. 
 
 But first, a preliminary look at the correlation between the different factors can be useful to understand what information these may share among themselves. 
-\newpage
 
 \begin{figure}[ht]
     \centering
@@ -430,7 +430,6 @@ The first thing to note in \autoref{fig:factors-secondary-corr-matrix} is the lo
 The first secondary regression, with all factors indicated in the model shown in equation \eqref{eq:secondary-regression} and already presented in \autoref{fig:factors-secondary-corr-matrix}, has had the coefficients estimated on the alphas of all available quarters with the information of all available companies. The results of the estimation can be found in \autoref{table:secondary-regression-results-1}.
 
 In this regression the $R^2$ achieved is of 1.09\%. There are 58 consecutive time periods corresponding for the 58 consecutive quarters in the studied period. The regression is jointly significant at all significance values with an F-statistic of 32.6. Again, individual entity effects are included as per \cite{ian_wagner_2019}. 
-\newpage
 \begin{table}[ht]
     \centering
     \begin{tabular}{rccc}
@@ -477,4 +476,4 @@ In this final regression, all parameters are significant at all significance lev
 
 The first interesting piece of information, like with Sherlock's dog, is given by what is missing. All factors that have been dropped due to their low significance -- namely Gross Profit over Assets, Enterprise Value to EBIT and Price to Earnings ratio -- can be inferred not to be drivers of the performance of the strategy. That is, those measures seem to be irrelevant to how the strategy performs, so including or removing assets based on those factors alone shouldn't have any significant impact given all other factors remain unchanged. 
 
-According to \autoref{table:secondary-regression-results-2}, the strategy seems to outperform due to the assets with high market capitalization in the most significant way, but also due to those on the higher end of the valuation spectrum according to the $BTM$, same according to the $EVEBITDA$ and  with high profitability according to $ROC$. Note however how this could be due to sectoral preferences. The Tech sector for example fits the description for all factors, so it could also be that the overperformance of the strategy is accentuated due to exposure to this sector. 
+According to \autoref{table:secondary-regression-results-2}, the strategy seems to outperform due to the assets with high market capitalization in the most significant way, but also due to those on the higher end of the valuation spectrum according to the $BTM$, same according to the $EVEBITDA$ and  with high profitability according to $ROC$. Note however how this could be due to sectoral preferences. The tech sector for example fits the description for all factors, so it could also be that the overperformance of the strategy is accentuated due to exposure to this sector wich has historically outperformed. This showcases the difference in the investment selection between this strategy and traditional rules-based strategies. These strategies which use fundamental factors generally tend to leave out investments in the technology sector due to having some undesirable ratios (e.g. PE ratio above the investment criteria threshold). This strategy thus lacks this bias which has burdened the performance of many such traditional strategies.

@@ -62,7 +62,7 @@ The optimal position sizes for the investor are demonstrated to be equivalent to
     \label{e:position-sizes}
     \delta^*_1=\Delta_y,\quad \delta^*_2=\Delta_x
 \end{equation}
-Through this equivalence, an optimal trigger for the investor to  enter and exit the position is determined. The investor must buy asset $y$ and short asset $x$ whenever 
+Through this equivalence, an optimal trigger for the investor to enter and exit the position is determined as per \cite{paraskevopoulos_2018}. The investor must buy asset $y$ and short asset $x$ whenever 
 \begin{equation}
     \label{e:trigger-1}
     \ln\left(\frac{y_t}{x_t}\right) > (1-\lambda_1 - \lambda_2)\sigma_z
@@ -112,10 +112,10 @@ When that trigger is activated, the position is entered ensuring the ratio of po
 Once the combined logprice crosses the historical mean, the position is closed. 
 
 \subsection{Primary factor model description}
-As the primary tool for analyzing the PnL drivers of the strategy's profits, an extension of the four factor model proposed by \cite{carhart_1997} has been used. To these four factors, the Idiosyncratic Volatility Premium ($IVP$) addressed in \cite{ioannis_2024} has been added as a potential driver of profit for the strategy. The model thus becomes
+As the primary tool for analyzing the PnL drivers of the strategy's profits, an extension of the four factor model proposed by \cite{carhart_1997} has been used. To these four factors, the Idiosyncratic Equity Volatility Premium ($IEP$) addressed in \cite{ioannis_2024} has been added as a potential driver of profit for the strategy. The model thus becomes
 \begin{multline}
     \label{e:primary-regression}
-    r_s = \alpha^{(1)} + \beta_{r_M-r-f}(r_M-r_f) + \beta_{HML}HML + \beta_{SMB}SMB + \\ + \beta_{MOM}MOM+ \gamma_{IVP}IVP + \epsilon^{(1)}
+    r_s = \alpha^{(1)} + \beta_{r_M-r-f}(r_M-r_f) + \beta_{HML}HML + \beta_{SMB}SMB + \\ + \beta_{MOM}MOM+ \gamma IEP + \epsilon^{(1)}
 \end{multline}
 
 The factors present in the model are the following 
@@ -124,14 +124,14 @@ The factors present in the model are the following
     \item $HML$: High-minus-low, or value premium is a factor representing the spread in returns between the value stocks and the growth stocks. Here, value stocks are those with the highest Book-to-Market ratio and growth stocks are those with the lowest BTM ratio.
     \item $SMB$: Small-minus-big or size premium is a factor representing the spread in returns between the small companies and the big companies. That is, those with the lowest and highest market capitalization respectively.
     \item $MOM$: Up-minus-down or momentum is a factor representing the spread in returns between companies that performed the best in the last 12 months and the companies that performed the worst in that same recent period. 
-    \item $IVP$: The Idiosyncratic Volatility Premium is a factor representing the spread in volatility between the given stock and the market. Note how this is the first fundamental factor out of all of the rest.
+    \item $IEP$: The Idiosyncratic Equity Volatility Premium is a factor representing the spread in volatility between the given stock and the market. Note how this is the first fundamental factor out of all of the rest.
 \end{itemize}
 
 The $\alpha^{(1)}$ is the outperformance -- or underperfomance -- of the strategy with respect to the model that cannot be explained solely by these five factors. 
 
-To obtain the given regression, the daily returns of the strategy are regressed in a panel regression for each stock, where the macroeconomic factors are common to all assets and the $IVP$ is particular to each one. 
+To obtain the given regression, the daily returns of the strategy are regressed in a panel regression for each stock, where the macroeconomic factors are common to all assets and the $IEP$ is particular to each one. 
 
-Other factors were considered for the regression. Mainly, these are the individual stock's volatility premium and the overal S\&P500's volatility premium. That is, the spread between the rolling 1 month historical volatility and the implied volatility like in \cite{dierckx_2022}. A visualization of this spread for the S\&P500 can be seen in \autoref{fig:hist-vs-impl-vol}. However when these variables were introduced in the regression problems of multicollinearity arose, due to their similarity to the $IVP$, leading to instability in the estimation of the regression coefficients and clouded results in the t-test for each of the individual coefficients. To solve these problems, these variables had to be dropped leaving the five factor model explained above.
+Other factors were considered for the regression. Mainly, these are the individual stock's volatility premium and the overal S\&P500's volatility premium. That is, the spread between the rolling 1 month historical volatility and the implied volatility like in \cite{dierckx_2022}. A visualization of this spread for the S\&P500 can be seen in \autoref{fig:hist-vs-impl-vol}. However when these variables were introduced in the regression problems of multicollinearity arose, due to their similarity to the $IEP$, leading to instability in the estimation of the regression coefficients and clouded results in the t-test for each of the individual coefficients. To solve these problems, these variables had to be dropped leaving the five factor model explained above.
 
 \begin{figure}[ht]
     \captionsetup{justification=centering}

@@ -1,27 +1,17 @@
-CORRECCIONES
+Conclusions in abstract
+Make introduction into paper like introduction and current introduction change name
+p12 trigger reference go to Paraskevopoulos 2018
+IVP->IEP
+Look into if pairs selection in the strategy is explained
+p.30 Explain risk adjusted levered strategy
+p.33 Explain how strategy can be a hedge to the market, beta
+p.33 Explain how it conforms with Paraskevopoulos 2023
+p.34 Explain more rolling beta
+p.37 Explain how the pair selection process is faster
+p.40 Explain further how better returns with lower risk
+p.49 Comment on how it compares to rules based ratio investing
+p.21 Change equation IVS
+Conclusion focusing on the main point of the work
 
-p.4 qué dice?
-p.12 what is the reference?
-p.23 qué dice so cool...
-p.23 yes it is. As an example, a 140% return over 15 years is a 6% CAGR but a 9.3% mean return.
-p.25 qué dice?
-p.29 qué dice?
-p.32 qué dice?
-p.35 qué dice?
-p.36 qué dice?
-p.40 why marcas en los t-statistic
-p.45 qué dice?
-
-Hi Yannis! I have been reading your comments, thanks a lot for the time you took reading the TFG! I have already fixed the most straigthforward ones, however there are others I am not too sure about. 
-
-First of all there are many comments where I don't really understand your handwriting hahahahahah. To be precise, the comments in pages 4, 23 (second comment), 25, 29, 32, 35, 36 and 45 are the ones I don't understand. 
-
-Also, I assume all the underlining and circling of sentences is to highlight important parts for yourself, there is nothing to change there right?
-
-Regarding the comment on page 23 about the CAGR, yes it is quite different. For example, a 140% return over 15 years is a 6% CAGR but a 9.3% mean return.
-
-And regarding the comments in p.12, what is the appropriate reference for the trigger?
-
-Finally, regarding the building of the factors and the TFG, I built the factors after finishing the TFG and for the analysis I used the downloaded factors, that is why I didn't explain the building in the TFG. I built them just because I thought it could be useful for you for the paper, but for the TFG I don't know if it makes sense to redo it again with the homemade factors.  
-
-If you want to talk about any of these things we can hop on a call whenever you want.
+Graph of confidence interval of IEP with gamma parameter, Paraskevopoulos 2024
+Tao Tang
