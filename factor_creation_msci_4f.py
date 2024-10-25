@@ -137,4 +137,28 @@ df_hml = pd.DataFrame({'hml':hml})
 df_mom = pd.DataFrame({'mom':mom})
 df_factors = df_smb.merge(df_hml,how='outer',left_index=True,right_index=True).merge(df_mom,how='outer',left_index=True,right_index=True)
 df_factors = df_factors.dropna()
+
+df_index = pd.read_excel('MSCI_Data_Factset/Price_MSCI_Emerging_2024.xlsx',skiprows=2,parse_dates=True)
+df_index = df_index[['Date','Price']]
+df_index = df_index.sort_values(by='Date')
+df_index.index = df_index['Date']
+df_index = df_index.drop('Date',axis=1)
+
+risk_free = pd.read_csv('Pairs_SP500_FPT/DTB6.csv', index_col=0, parse_dates=True)
+risk_free = risk_free.rename(columns={
+    'DTB6': 'rf'
+})
+risk_free['rf'] = pd.to_numeric(risk_free['rf'], errors='coerce')
+risk_free = risk_free.dropna()
+risk_free['rf'] = risk_free['rf']/100/365
+risk_free.head()
+
+df_index = df_index.merge(risk_free,left_index=True,right_index=True,how='inner')
+df_index['rets'] = df_index['Price'].pct_change()
+df_index['mkt-rf'] = df_index['rets']-df_index['rf']
+
+df_factors = df_factors.merge(df_index, left_index=True, right_index=True, how='inner')
+df_factors = df_factors[['mkt-rf','smb','hml','mom']]
+
+
 df_factors.to_csv('factors_msci.csv')

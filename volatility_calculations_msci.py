@@ -25,11 +25,12 @@ df_histvol = df_histvol.rename(columns={
     'date':'Date',
     'id':'Id',
     'price':'p_price',
+    'symbol':'stock',
 })
 df_histvol['Date'] = pd.to_datetime(df_histvol['Date'], format='%Y-%m-%d')
 df_histvol = df_histvol[df_histvol['Date']>='2003-01-01']
 df_histvol = df_histvol[~df_histvol['p_price'].isna()]
-df_histvol['Id'] = df_histvol['Id'].str.replace('-', '_')
+df_histvol['Id'] = df_histvol['stock'].str.replace('-', '_')
 df_histvol = df_histvol.pivot(index='Date', columns='Id', values='p_price')
 df_histvol = df_histvol.sort_index()
 df_histvol = df_histvol.dropna(axis=1)
@@ -50,4 +51,5 @@ df_sp_vol = df_sp_vol[df_sp_vol.index.isin(set(df_histvol.index))]*100*((1/(YEAR
 df_hist_minus_sp = pd.DataFrame(df_histvol)
 for c in df_hist_minus_sp.columns:
     df_hist_minus_sp[c] = df_hist_minus_sp[c] - df_sp_vol['price']
-df_hist_minus_sp.to_csv('Pairs_SP500_FPT/1mo_rolling_hist_stock_minus_msci_vol.csv')
+df_hist_minus_sp = df_hist_minus_sp.dropna()
+df_hist_minus_sp.to_csv('1mo_rolling_hist_stock_minus_msci_vol.csv')
