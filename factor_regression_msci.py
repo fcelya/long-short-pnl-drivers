@@ -14,6 +14,9 @@ import matplotlib.ticker as mtick
 
 warnings.filterwarnings('ignore')
 
+MONTH = 252//12
+IEP_LAGS = MONTH * 1
+
 df_original = pd.read_parquet('MSCI_Data_Factset/daily_prices.parquet')
 df_original = df_original.rename(columns={
     'date':'Date',
@@ -51,7 +54,7 @@ risk_free.head()
 
 market_spread_over_sp = pd.read_csv('1mo_rolling_hist_stock_minus_msci_vol.csv', index_col=0, parse_dates=True)
 market_spread_over_sp /= 100
-melted_market_spread_over_sp = market_spread_over_sp.reset_index().melt(id_vars='Date', var_name='stock', value_name='spread_over_sp')
+melted_market_spread_over_sp = market_spread_over_sp.reset_index().melt(id_vars='Date', var_name='stock', value_name='iep')
 melted_market_spread_over_sp=melted_market_spread_over_sp.rename(columns={'Date':'date'})
 
 df_exc_rets = df_rets.merge(risk_free, left_index=True, right_index=True, how='inner')
@@ -67,10 +70,11 @@ factors['hml'] = factors['hml'].astype(np.float32)
 factors['mom'] = factors['mom'].astype(np.float32)
 factors = factors.reset_index().rename(columns={'index':'date'})
 df_exc_rets['exc_rets'] = df_exc_rets['exc_rets'].astype(np.float32)
-melted_market_spread_over_sp['spread_over_sp'] = melted_market_spread_over_sp['spread_over_sp'].astype(np.float32)
+melted_market_spread_over_sp['iep'] = melted_market_spread_over_sp['iep'].astype(np.float32)
 
 full_dataset = df_exc_rets.merge(melted_market_spread_over_sp,on=['date','stock'], how='inner')
 full_dataset = full_dataset.merge(factors, on='date', how='left')
+full_dataset['iep'] = full_dataset['iep'].shift(IEP_LAGS)
 full_dataset = full_dataset.dropna()
 
 full_dataset = full_dataset.reset_index(drop=True)
